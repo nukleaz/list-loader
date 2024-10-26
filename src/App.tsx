@@ -1,5 +1,3 @@
-import './App.css';
-
-export const App = () => {
-	return <div></div>;
+export const App: React.FC = () => {
+	return <></>;
 };
