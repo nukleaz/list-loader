@@ -1,26 +1,16 @@
-import { useEffect, useState } from 'react';
-import { IPosts, getPosts } from './api/getPosts';
-import { PostList } from './components/List/PostList';
+import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
+import { PostList } from './components/PostList/PostList';
+import postsStore from './stores/PostsStore';
 
-export const App: React.FC = () => {
-	const [list, setList] = useState<IPosts[] | null>(null);
+export const App = observer(() => {
+	const { posts, fetchPosts } = postsStore;
 
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const data = await getPosts();
-				if (data) {
-					setList(data);
-				}
-			} catch (error) {
-				console.log(error);
-			}
-		};
-
-		fetchData();
+		fetchPosts();
 	}, []);
 
-	console.log(list);
+	console.log(posts);
 
 	return <PostList />;
-};
+});
