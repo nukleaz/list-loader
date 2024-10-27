@@ -3,14 +3,14 @@ import { useEffect } from 'react';
 import { PostList } from './components/PostList/PostList';
 import postsStore from './stores/PostsStore';
 
-export const App = observer(() => {
+export const App: React.FC = observer(() => {
 	const { posts, fetchPosts } = postsStore;
 
 	useEffect(() => {
-		fetchPosts();
+		if (!posts) {
+			fetchPosts();
+		}
 	}, []);
-
-	console.log(posts);
 
 	return <PostList />;
 });
