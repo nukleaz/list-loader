@@ -1,5 +1,16 @@
-import './App.css';
+import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
+import { PostList } from './components/PostList/PostList';
+import postsStore from './stores/PostsStore';
 
-export const App = () => {
-	return <div></div>;
-};
+export const App: React.FC = observer(() => {
+	const { posts, fetchPosts } = postsStore;
+
+	useEffect(() => {
+		if (!posts) {
+			fetchPosts();
+		}
+	}, []);
+
+	return <PostList />;
+});
