@@ -2,6 +2,7 @@ import { List } from 'antd';
 import { observer } from 'mobx-react-lite';
 import { IPost } from '../../api/getPosts';
 import postStore from '../../stores/PostsStore';
+import { PostItem } from '../PostItem/PostItem';
 
 export const PostList: React.FC = observer(() => {
 	const { posts } = postStore;
@@ -12,7 +13,7 @@ export const PostList: React.FC = observer(() => {
 		<List
 			bordered
 			dataSource={postsData}
-			renderItem={post => <List.Item key={post.id}>{post.title}</List.Item>}
+			renderItem={(post: IPost) => <PostItem post={post} />}
 		/>
 	);
 });
