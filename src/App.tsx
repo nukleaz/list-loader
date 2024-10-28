@@ -12,5 +12,9 @@ export const App: React.FC = observer(() => {
 		}
 	}, []);
 
-	return <PostList />;
+	return posts?.case({
+		pending: () => <div>Загрузка...</div>,
+		rejected: () => <div>Ошибка</div>,
+		fulfilled: () => <PostList />,
+	});
 });
