@@ -14,7 +14,11 @@ export const App: React.FC = observer(() => {
 
 	return posts?.case({
 		pending: () => <div>Загрузка...</div>,
-		rejected: () => <div>Ошибка</div>,
+		rejected: (err: unknown) => {
+			const errorMessage =
+				err instanceof Error ? err.message : 'Произошла неизвестная ошибка';
+			return <div>Ошибка: {errorMessage}</div>;
+		},
 		fulfilled: () => <PostList />,
 	});
 });
