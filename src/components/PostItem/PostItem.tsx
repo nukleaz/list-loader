@@ -1,4 +1,4 @@
-import { List } from 'antd';
+import { Button, List } from 'antd';
 import { FC } from 'react';
 import { IPost } from '../../api/getPosts';
 
@@ -11,6 +11,8 @@ export const PostItem: FC<PostItemProps> = ({ post }) => {
 		<List.Item>
 			<h2>{post.title}</h2>
 			<p>{post.body}</p>
+			<Button type='primary'>Редактировать</Button>
+			<Button danger>Удалить</Button>
 		</List.Item>
 	);
 };
