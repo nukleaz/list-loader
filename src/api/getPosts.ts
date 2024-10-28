@@ -9,4 +9,5 @@ export interface IPost {
 	body: string;
 }
 
-export const getPosts = async () => (await axios.get<IPost[]>(`${URL}`)).data;
+export const getPosts = async (pageNumber: number) =>
+	await axios.get<IPost[]>(`${URL}?_limit=10&_page=${pageNumber}`);

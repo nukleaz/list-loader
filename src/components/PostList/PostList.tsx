@@ -7,12 +7,10 @@ import { PostItem } from '../PostItem/PostItem';
 export const PostList: React.FC = observer(() => {
 	const { posts } = postStore;
 
-	const postsData = posts?.value as IPost[] | undefined;
-
 	return (
 		<List
 			bordered
-			dataSource={postsData}
+			dataSource={posts}
 			renderItem={(post: IPost) => <PostItem post={post} />}
 		/>
 	);

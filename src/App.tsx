@@ -4,21 +4,33 @@ import { PostList } from './components/PostList/PostList';
 import postsStore from './stores/PostsStore';
 
 export const App: React.FC = observer(() => {
-	const { posts, fetchPosts } = postsStore;
+	const { posts, fetching, fetchPosts, setFetching, totalCount } = postsStore;
 
 	useEffect(() => {
-		if (!posts) {
+		if (fetching) {
 			fetchPosts();
 		}
-	}, []);
+	}, [fetching]);
 
-	return posts?.case({
-		pending: () => <div>Загрузка...</div>,
-		rejected: (err: unknown) => {
-			const errorMessage =
-				err instanceof Error ? err.message : 'Произошла неизвестная ошибка';
-			return <div>Ошибка: {errorMessage}</div>;
-		},
-		fulfilled: () => <PostList />,
-	});
+	useEffect(() => {
+		document.addEventListener('scroll', scrollHandler);
+
+		return () => {
+			document.removeEventListener('scroll', scrollHandler);
+		};
+	}, [totalCount, posts]);
+
+	const scrollHandler = (e: Event) => {
+		const target = e.target as Document;
+		if (
+			target.documentElement.scrollHeight -
+				(target.documentElement.scrollTop + window.innerHeight) <
+				100 &&
+			posts.length < totalCount
+		) {
+			setFetching(true);
+		}
+	};
+
+	return <PostList />;
 });
