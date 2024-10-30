@@ -1,12 +1,13 @@
 import axios from 'axios';
 
-const URL = 'https://jsonplaceholder.typicode.com/posts';
+const URL = 'https://jsonplaceholder.typicode.com/photos';
 
 export interface IPost {
-	userId: number;
+	albumId: number;
 	id: number;
 	title: string;
-	body: string;
+	url: string;
+	thumbnailUrl: string;
 }
 
 export const getPosts = async (pageNumber: number) =>
