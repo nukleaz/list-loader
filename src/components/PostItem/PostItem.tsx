@@ -1,5 +1,5 @@
 import { Button, List } from 'antd';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { IPost } from '../../api/getPosts';
 import postStore from '../../stores/PostsStore';
 
@@ -7,7 +7,7 @@ interface PostItemProps {
 	post: IPost;
 }
 
-export const PostItem: FC<PostItemProps> = ({ post }) => {
+export const PostItem: FC<PostItemProps> = memo(({ post }) => {
 	const { deletePost } = postStore;
 	const handleDeletePost = () => {
 		deletePost(post.id);
@@ -27,4 +27,4 @@ export const PostItem: FC<PostItemProps> = ({ post }) => {
 			</Button>
 		</List.Item>
 	);
-};
+});

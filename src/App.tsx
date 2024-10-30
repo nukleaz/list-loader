@@ -1,27 +1,18 @@
 import { observer } from 'mobx-react-lite';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { PostList } from './components/PostList/PostList';
 import postsStore from './stores/PostsStore';
 
 export const App: React.FC = observer(() => {
-	const { posts, fetchPosts, error } = postsStore;
-	const [pageNumber, setPageNumber] = useState<number>(1);
-	const [fetching, setFetching] = useState<boolean>(false);
-	const [totalCount, setTotalCount] = useState<number>(0);
+	const { posts, fetchPosts, fetching, setFetching, totalCount, error } =
+		postsStore;
+
 	const isInitialLoad = useRef(true);
 
 	useEffect(() => {
 		if (isInitialLoad.current || fetching) {
 			isInitialLoad.current = false;
-
-			fetchPosts(pageNumber)
-				.then(response => {
-					setPageNumber(prevNum => prevNum + 1);
-					if (totalCount === 0) {
-						setTotalCount(response?.headers['x-total-count']);
-					}
-				})
-				.finally(() => setFetching(false));
+			fetchPosts();
 		}
 	}, [fetching]);
 
