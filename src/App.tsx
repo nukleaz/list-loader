@@ -1,24 +1,25 @@
 import { observer } from 'mobx-react-lite';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { PostList } from './components/PostList/PostList';
 import postsStore from './stores/PostsStore';
 
 export const App: React.FC = observer(() => {
-	const { posts, fetchPosts } = postsStore;
+	const { posts, fetchPosts, error } = postsStore;
 	const [pageNumber, setPageNumber] = useState<number>(1);
 	const [fetching, setFetching] = useState<boolean>(false);
 	const [totalCount, setTotalCount] = useState<number>(0);
+	const isInitialLoad = useRef(true);
 
 	useEffect(() => {
-		setFetching(true);
-	}, []);
+		if (isInitialLoad.current || fetching) {
+			isInitialLoad.current = false;
 
-	useEffect(() => {
-		if (fetching) {
 			fetchPosts(pageNumber)
 				.then(response => {
 					setPageNumber(prevNum => prevNum + 1);
-					setTotalCount(response?.headers['x-total-count']);
+					if (totalCount === 0) {
+						setTotalCount(response?.headers['x-total-count']);
+					}
 				})
 				.finally(() => setFetching(false));
 		}
@@ -30,14 +31,14 @@ export const App: React.FC = observer(() => {
 		return () => {
 			document.removeEventListener('scroll', handleScroll);
 		};
-	}, [totalCount, posts]);
+	}, [totalCount]);
 
 	const handleScroll = (e: Event) => {
 		const target = e.target as Document;
 		if (
 			target.documentElement.scrollHeight -
 				(target.documentElement.scrollTop + window.innerHeight) <
-				150 &&
+				300 &&
 			posts.length < totalCount
 		) {
 			setFetching(true);

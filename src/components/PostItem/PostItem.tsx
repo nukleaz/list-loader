@@ -1,5 +1,4 @@
 import { Button, List } from 'antd';
-import { observer } from 'mobx-react-lite';
 import { FC } from 'react';
 import { IPost } from '../../api/getPosts';
 import postStore from '../../stores/PostsStore';
@@ -8,7 +7,7 @@ interface PostItemProps {
 	post: IPost;
 }
 
-export const PostItem: FC<PostItemProps> = observer(({ post }) => {
+export const PostItem: FC<PostItemProps> = ({ post }) => {
 	const { deletePost } = postStore;
 	const handleDeletePost = () => {
 		deletePost(post.id);
@@ -28,4 +27,4 @@ export const PostItem: FC<PostItemProps> = observer(({ post }) => {
 			</Button>
 		</List.Item>
 	);
-});
+};
