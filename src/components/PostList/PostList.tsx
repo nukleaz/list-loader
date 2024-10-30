@@ -1,16 +1,19 @@
 import { List } from 'antd';
 import { observer } from 'mobx-react-lite';
+import { FC } from 'react';
 import { IPost } from '../../api/getPosts';
-import postStore from '../../stores/PostsStore';
 import { PostItem } from '../PostItem/PostItem';
 
-export const PostList: React.FC = observer(() => {
-	const { posts } = postStore;
+interface PostListProps {
+	posts: IPost[];
+}
 
+export const PostList: FC<PostListProps> = observer(({ posts }) => {
 	return (
 		<List
 			bordered
 			dataSource={posts}
+			rowKey={post => post.id}
 			renderItem={(post: IPost) => <PostItem post={post} />}
 		/>
 	);
