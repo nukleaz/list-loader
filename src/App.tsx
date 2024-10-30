@@ -44,5 +44,5 @@ export const App: React.FC = observer(() => {
 		}
 	};
 
-	return <PostList />;
+	return <PostList posts={posts} />;
 });

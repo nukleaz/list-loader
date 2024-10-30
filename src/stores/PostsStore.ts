@@ -28,8 +28,8 @@ class PostsStore {
 		}
 	};
 
-	setPosts = (data: any) => {
-		this.posts = [...this.posts, ...data];
+	deletePost = (id: number) => {
+		this.posts = this.posts.filter(post => post.id !== id);
 	};
 }
 
