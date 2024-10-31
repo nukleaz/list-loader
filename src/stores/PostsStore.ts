@@ -72,4 +72,5 @@ class PostsStore {
 	};
 }
 
-export default new PostsStore();
+const postsStore = new PostsStore();
+export default postsStore;

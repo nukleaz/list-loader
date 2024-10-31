@@ -1,1 +1,22 @@
+.item {
+	align-items: center;
+	background-color: rgba(241, 244, 249, 0.543);
+}
 
+.title {
+	max-width: 300px;
+	width: 100%;
+}
+
+.spansWrap {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+}
+
+.btnsWrap {
+	display: flex;
+	gap: 15px;
+	padding: 20px;
+}
