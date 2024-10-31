@@ -1,7 +1,7 @@
-import { IPost, getPosts } from '../api/getPosts';
-import postsStore from './PostsStore';
+import { IPost, getPosts } from '../../api/getPosts';
+import postsStore from '../PostsStore';
 
-jest.mock('../api/getPosts');
+jest.mock('../../api/getPosts');
 
 describe('PostsStore', () => {
 	beforeEach(() => {
