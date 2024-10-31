@@ -1,7 +1,7 @@
 import { Button, List } from 'antd';
 import { FC, memo, useState } from 'react';
 import { IPost } from '../../api/getPosts';
-import postStore from '../../stores/PostsStore';
+import postsStore from '../../stores/PostsStore';
 import { EditPostForm } from '../EditPostForm/EditPostForm';
 
 interface PostItemProps {
@@ -9,7 +9,7 @@ interface PostItemProps {
 }
 
 export const PostItem: FC<PostItemProps> = memo(({ post }) => {
-	const { deletePost, setSelectedPost } = postStore;
+	const { deletePost, setSelectedPost } = postsStore;
 	const [isEditing, setIsEditing] = useState(false);
 
 	const handleDeletePost = () => {
