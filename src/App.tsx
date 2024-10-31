@@ -1,11 +1,19 @@
 import { observer } from 'mobx-react-lite';
 import { useEffect, useRef } from 'react';
+import { Loader } from './components/Loader/Loader';
 import { PostList } from './components/PostList/PostList';
 import postsStore from './stores/PostsStore';
 
 export const App: React.FC = observer(() => {
-	const { posts, fetchPosts, fetching, setFetching, totalCount, error } =
-		postsStore;
+	const {
+		posts,
+		fetchPosts,
+		fetching,
+		setFetching,
+		totalCount,
+		isLoading,
+		error,
+	} = postsStore;
 
 	const isInitialLoad = useRef(true);
 
@@ -39,6 +47,7 @@ export const App: React.FC = observer(() => {
 	return (
 		<>
 			{error && <div>Ошибка: ${error}</div>}
+			{isLoading && <Loader />}
 			<PostList posts={posts} />
 		</>
 	);
