@@ -36,5 +36,10 @@ export const App: React.FC = observer(() => {
 		}
 	};
 
-	return <PostList posts={posts} />;
+	return (
+		<>
+			{error && <div>Ошибка: ${error}</div>}
+			<PostList posts={posts} />
+		</>
+	);
 });
