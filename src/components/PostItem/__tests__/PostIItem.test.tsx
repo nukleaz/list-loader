@@ -4,7 +4,6 @@ import { IPost } from '../../../api/getPosts';
 import postsStore from '../../../stores/PostsStore';
 import { PostItem } from '../PostItem';
 
-// Мокаем весь postsStore
 jest.mock('../../../stores/PostsStore.ts', () => ({
 	deletePost: jest.fn(),
 	setSelectedPost: jest.fn(),
@@ -17,15 +16,15 @@ describe('PostItem', () => {
 	beforeEach(() => {
 		mockPost = {
 			id: 1,
-			title: 'Заголовок поста',
+			title: 'Post title',
 			albumId: 1,
 			url: 'https://example.com/post1',
 			thumbnailUrl: 'https://example.com/thumbnail1',
 		};
-		jest.clearAllMocks(); // Очищаем моки перед каждым тестом
+		jest.clearAllMocks();
 	});
 
-	it('вызывает deletePost при нажатии кнопки "Удалить"', () => {
+	it('calls deletePost when the "Delete" button is clicked', () => {
 		render(<PostItem post={mockPost} />);
 
 		const deleteButton = screen.getByRole('button', { name: /удалить/i });
@@ -35,7 +34,7 @@ describe('PostItem', () => {
 		expect(postsStore.deletePost).toHaveBeenCalledWith(mockPost.id);
 	});
 
-	it('вызывает setSelectedPost при нажатии кнопки "Редактировать"', () => {
+	it('calls setSelectedPost when the "Edit" button is clicked', () => {
 		render(<PostItem post={mockPost} />);
 
 		const editButton = screen.getByRole('button', { name: /редактировать/i });
